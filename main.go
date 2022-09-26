@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"os"
 )
@@ -12,13 +13,15 @@ type Problem struct {
 }
 
 func main() {
-	readCSV()
+	csvFilename := flag.String("csv", "problems.csv", "gimme a CSV file but the format of 'question, answer'")
+	flag.Parse()
+	readCSV(*csvFilename)
 	//TODO call askValidate() from here instead
 
 }
 
-func readCSV() {
-	csvFile, err := os.Open("problems.csv")
+func readCSV(csvFilename string) {
+	csvFile, err := os.Open(csvFilename)
 	if err != nil {
 		fmt.Println(err)
 	}
