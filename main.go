@@ -13,6 +13,8 @@ type Problem struct {
 
 func main() {
 	readCSV()
+	//TODO call askValidate() from here instead
+
 }
 
 func readCSV() {
