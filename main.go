@@ -6,15 +6,13 @@ import (
 	"os"
 )
 
-type problem struct {
+type Problem struct {
 	Question string
 	Answer   string
 }
 
 func main() {
-
 	readCSV()
-
 }
 
 func readCSV() {
@@ -30,10 +28,25 @@ func readCSV() {
 		fmt.Println(err)
 	}
 	for _, line := range csvLines {
-		prob := problem{
+		prob := Problem{
 			Question: line[0],
 			Answer:   line[1],
 		}
-		fmt.Println(prob.Question + " " + prob.Answer)
+		askValidate(prob)
+
 	}
+}
+
+func askValidate(class Problem) {
+	var userAns string
+
+	fmt.Println(class.Question, "Enter your ans: ")
+	fmt.Scanln(&userAns)
+
+	if userAns == class.Answer {
+		fmt.Println("Correct!")
+	} else {
+		fmt.Println("Incorrect")
+	}
+
 }
