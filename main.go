@@ -13,14 +13,23 @@ type Problem struct {
 }
 
 func main() {
-	csvFilename := flag.String("csv", "problems.csv", "gimme a CSV file but the format of 'question, answer'")
+	csvFilename := flag.String("csv", "problems.csv", "gimme a CSV file with the format of 'question, answer'")
 	flag.Parse()
-	readCSV(*csvFilename)
-	//TODO call askValidate() from here instead
+
+	csvLines := readCSV(*csvFilename)
+
+	for _, line := range csvLines {
+		prob := Problem{
+			Question: line[0],
+			Answer:   line[1],
+		}
+		askValidate(prob)
+
+	}
 
 }
 
-func readCSV(csvFilename string) {
+func readCSV(csvFilename string) [][]string {
 	csvFile, err := os.Open(csvFilename)
 	if err != nil {
 		fmt.Println(err)
@@ -32,14 +41,9 @@ func readCSV(csvFilename string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	for _, line := range csvLines {
-		prob := Problem{
-			Question: line[0],
-			Answer:   line[1],
-		}
-		askValidate(prob)
 
-	}
+	return csvLines
+
 }
 
 func askValidate(class Problem) {
